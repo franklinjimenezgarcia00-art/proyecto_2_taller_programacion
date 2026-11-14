@@ -23,7 +23,7 @@ async def main():
     meteoro_sprite.set_colorkey((255,0,255))
 
     nave = Player()
-    asteroides = [asteroide(-50), asteroide(-23), asteroide(7)]
+    asteroides = [asteroide(-50), asteroide(200), asteroide(7)]
     meteoros = [meteoro(-67), meteoro(-55), meteoro(-43), meteoro(-33), meteoro(-25), meteoro(-13), meteoro(-3)]
 
     running = 1
@@ -68,7 +68,7 @@ async def main():
 
         for index in reversed(range(len(asteroides))):
             scale = max(0.0001, 1/(asteroides[index].x - nave.x))
-            render_element(screen, asteroide_sprite, 100*scale, 80*scale, scale, asteroides[index].x, nave, -70+nave.y, z_buffer)
+            render_element(screen, asteroide_sprite, 100*scale, 80*scale, scale, asteroides[index].x, nave, asteroides[index].y+nave.y, z_buffer)
             asteroides[index].x -= 10*delta
         
         if asteroides[0].x < nave.x+1:
@@ -113,7 +113,10 @@ def render_element(screen, sprite, width, height, scale, x, nave, y, z_buffer):
 
 class asteroide():
     def __init__(self, distance):
-        self.x = distance + random.randint(90, 110)
+        self.x = distance + random.randint(50, 220)
+
+        carriles = [-14, -192, -375]
+        self.y = random.choice(carriles)
 
 class Player():
     def __init__(self):
